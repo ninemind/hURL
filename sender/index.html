@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" data-cast-api-enabled="true" ng-app>
+	<head>
+		<meta charset="utf-8">
+		<title>hURL</title>
+
+		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="css/sender.css">
+
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+		<script src="js/sender.js"></script>
+	</head>
+
+	<body>
+		<div id="content">
+			<center><img id="header" src="img/header.png"></center>
+		
+			<div ng-controller="SenderCtrl">
+				<form id="urlForm" name="urlForm" class="form-horizontal" ng-hide="showMediaControls">
+					<div class="input-group">
+						<input id="url" class="form-control" ng-model="url" type="url" placeholder="Enter a local filepath (ex: file:///C:/video.mp4) or url" required>
+						<div class="input-group-btn btn-group dropup">
+							<!-- <button class="btn btn-default" style="margin-left: -1px; margin-right: 3px">Browse...</button> -->
+
+							<button class="btn btn-primary dropdown-toggle" style="margin-left: -1px" data-toggle="dropdown" ng-disabled="!receivers.length || urlForm.$invalid">
+								<img id="cast" src="img/cast.png">
+							</button>
+							
+							<ul class="dropdown-menu" ng-repeat="receiver in receivers">
+								<li ng-click="launch($index)"><a href="#">{{receiver.name}}</a></li>
+							</ul>
+						</div>
+					</div>
+				</form>
+	
+				<div class="alert alert-warning" ng-hide="receivers.length">
+					<strong>Warning:</strong> No receivers found. Please make sure your device is powered on and connected to the network.
+				</div>
+
+				<div id="mediaControls" ng-show="showMediaControls">
+					<div class="progress">
+						<div class="progress-bar progress-bar-info" style="width: 60%"></div>
+					</div>
+
+					<button id="slider-button" class="btn btn-primary"></button>
+
+					<button class="btn btn-default">
+						<span class="glyphicon glyphicon-fast-backward"></span>
+					</button>
+
+					<button class="btn btn-default">
+						<span class="glyphicon glyphicon-backward"></span>
+					</button>
+
+					<button class="btn" ng-class="{true: 'btn-success', false: 'btn-warning'}[isPaused]" ng-click="togglePlay()">
+						<span class="glyphicon" ng-class="{true: 'glyphicon-play', false: 'glyphicon-pause'}[isPaused]"></span>
+					</button>
+
+					<button class="btn btn-danger" ng-click="stopActivity()">
+						<span class="glyphicon glyphicon-stop"></span>
+					</button>
+
+					<button class="btn btn-default">
+						<span class="glyphicon glyphicon-forward"></span>
+					</button>
+
+					<button class="btn btn-default">
+						<span class="glyphicon glyphicon-fast-forward"></span>
+					</button>
+
+					<div class="pull-right">
+						<button class="btn btn-danger">
+							<span class="glyphicon glyphicon-volume-off"></span>
+						</button>
+
+						<button class="btn btn-default">
+							<span class="glyphicon glyphicon-volume-down"></span>
+						</button>
+
+						<button class="btn btn-default">
+							<span class="glyphicon glyphicon-volume-up"></span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	</body>
+</html>
